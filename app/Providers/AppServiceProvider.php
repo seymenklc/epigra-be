@@ -2,10 +2,18 @@
 
 namespace App\Providers;
 
+use App\Events\UserRegistered;
+use App\Listeners\AssignPlanetToUser;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+
+    protected $listen = [
+        UserRegistered::class => [
+            AssignPlanetToUser::class
+        ]
+    ];
     /**
      * Register any application services.
      */
@@ -19,6 +27,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
     }
 }

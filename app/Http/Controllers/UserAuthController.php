@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserRegistered;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -18,6 +19,8 @@ class UserAuthController extends Controller
 
         $userData['password'] = Hash::make($userData['password']);
         $user = User::create($userData);
+
+        event(new UserRegistered($user));
 
         $token = $user->createToken($user->name . '-AuthToken')->plainTextToken;
 
