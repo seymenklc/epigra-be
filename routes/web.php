@@ -13,6 +13,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 });
 
 Route::post('/login', [UserAuthController::class, 'login']);
+Route::post('/register', [UserAuthController::class, 'register']);
 
 Route::get('/token', function () {
     return csrf_token();

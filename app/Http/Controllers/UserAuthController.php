@@ -8,6 +8,25 @@ use Illuminate\Http\Request;
 
 class UserAuthController extends Controller
 {
+    public function register(Request $request)
+    {
+        $userData = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|string|email|unique:users',
+            'password' => 'required|string'
+        ]);
+
+        $userData['password'] = Hash::make($userData['password']);
+        $user = User::create($userData);
+
+        $token = $user->createToken($user->name . '-AuthToken')->plainTextToken;
+
+        return response()->json([
+            'access_token' => $token,
+        ]);
+    }
+
+
     public function login(Request $request)
     {
         $loginUserData = $request->validate([
