@@ -13,4 +13,14 @@ class UserPlanet extends Model
         'user_id',
         'planet_id',
     ];
+
+    public function planets()
+    {
+        return $this->belongsTo(Planet::class, 'planet_id', 'id');
+    }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }
