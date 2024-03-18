@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Http\Controllers\PlanetController;
 use Illuminate\Console\Command;
+use Log;
 
 class SyncDatabase extends Command
 {
@@ -26,7 +27,15 @@ class SyncDatabase extends Command
      */
     public function handle()
     {
+        Log::info('Database sync started');
+
         $planetController = new PlanetController();
-        $planetController->syncPlanetsWithDB();
+        $plantes = $planetController->syncPlanetsWithDB();
+
+        if ($plantes) {
+            Log::info('Database sync completed');
+        } else {
+            Log::error('Database sync failed');
+        }
     }
 }
