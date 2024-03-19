@@ -5,7 +5,6 @@ use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\UserPlanetController;
 use Illuminate\Support\Facades\Route;
 
-
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('logout', [UserAuthController::class, 'logout']);
 
